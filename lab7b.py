@@ -31,7 +31,7 @@ def sum_times(t1, t2):
         sum.hour += sum.minute // 60
         sum.minute %= 60
 
-    # Optional: Keep hour within 24-hour format
+    # Keep hour within 24-hour format
     if sum.hour >= 24:
         sum.hour %= 24
 
@@ -40,7 +40,32 @@ def sum_times(t1, t2):
 def valid_time(t):
     """Check for the validity of the time object attributes:
        0 ≤ hour < 24, 0 ≤ minute < 60, 0 ≤ second < 60 """
-    if not (0 <= t.hour < 24 and 0 <= t.minute < 60 and 0 <= t.second < 60):
-        return False
-    return True
+    return 0 <= t.hour < 24 and 0 <= t.minute < 60 and 0 <= t.second < 60
 
+def change_time(time, seconds):
+    """Modify the time object by adding or subtracting seconds."""
+    time.second += seconds
+
+    # Adjust seconds
+    while time.second >= 60:
+        time.second -= 60
+        time.minute += 1
+    while time.second < 0:
+        time.second += 60
+        time.minute -= 1
+
+    # Adjust minutes
+    while time.minute >= 60:
+        time.minute -= 60
+        time.hour += 1
+    while time.minute < 0:
+        time.minute += 60
+        time.hour -= 1
+
+    # Keep hour within 24-hour format
+    while time.hour >= 24:
+        time.hour -= 24
+    while time.hour < 0:
+        time.hour += 24
+
+    return None
